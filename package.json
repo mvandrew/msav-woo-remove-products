@@ -1,0 +1,36 @@
+{
+  "name": "msav-woo-remove-products",
+  "version": "1.0.0",
+  "description": "Removes all WooCommerce Products, including associated media files",
+  "main": "msav-woo-remove-products.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mvandrew/msav-woo-remove-products.git"
+  },
+  "keywords": [
+    "wordpress",
+    "woocommerce"
+  ],
+  "author": "Andrey Mishchenko",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/mvandrew/msav-woo-remove-products/issues"
+  },
+  "homepage": "https://github.com/mvandrew/msav-woo-remove-products#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-group-css-media-queries": "^1.2.2",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-uglify": "^3.0.0"
+  }
+}
