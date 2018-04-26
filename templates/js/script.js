@@ -7,5 +7,4 @@
     $(document).ready(function () {
         log('loaded');
     });
-    
 })(jQuery);
