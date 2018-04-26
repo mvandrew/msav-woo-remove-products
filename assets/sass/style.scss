@@ -1,4 +1,39 @@
 @charset "UTF-8";
 
+// Add bootstrap components
+//
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/buttons";
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/alerts";
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/forms";
+
+
 // msav-woo-remove-products style
 //
+.msav-woo-remove-products {
+
+  .msav_admin_panel {
+    display: none;
+    overflow: hidden;
+
+    &.active {
+      display: block;
+    }
+
+    .form-table {
+      span.description,
+      small {
+        display: block;
+        overflow: hidden;
+        margin-top: 5px;
+      }
+    }
+
+    #msav_log {
+      display: none;
+    }
+
+  }
+
+} // .msav-woo-remove-products

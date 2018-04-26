@@ -41,3 +41,38 @@ gulp.task('js', function() {
         .pipe( gulp.dest(dirs.templates + 'js/') )
         .pipe( notify({ message: 'JavaScript task complete', onLast: true }) );
 });
+
+
+/**
+ * Compiling SCSS files.
+ */
+gulp.task('sass', () => {
+    return gulp.src( dirs.src + 'sass/**/*.scss' )
+        .pipe( plumber({ errorHandler: function(err) {
+                notify.onError({
+                    title: "Gulp error in " + err.plugin,
+                    message:  err.toString()
+                })(err);
+            }}) )
+        .pipe( sass() )
+        .pipe( autoprefixer(
+            ['last 2 versions'],
+            { cascade: false }
+        ) )
+        .pipe( gcmq() )
+        .pipe( gulp.dest( dirs.templates + 'css/' ) )
+        .pipe( notify({ message: 'Styles task complete', onLast: true }) );
+});
+
+
+gulp.task('watch', [
+    'sass',
+    'js'
+], () => {
+
+    gulp.watch( dirs.src + 'sass/**/*.scss', ['sass'] );
+    gulp.watch( dirs.src + 'js/**/*.js', ['js'] );
+
+});
+
+gulp.task("default", ["watch"]);

@@ -1,0 +1,24 @@
+{
+  "name": "msav-woo-remove-products",
+  "description": "Removes all WooCommerce Products, including associated media files",
+  "main": "msav-woo-remove-products.php",
+  "authors": [
+    "Andrey Mishchenko"
+  ],
+  "license": "GPL-3.0",
+  "keywords": [
+    "wordpress",
+    "woocommerce"
+  ],
+  "homepage": "https://github.com/mvandrew/msav-woo-remove-products",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7"
+  }
+}

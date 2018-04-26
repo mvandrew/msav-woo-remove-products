@@ -4,7 +4,15 @@
 //
 (function ($) {
 
+    var displaySummary = function displaySummary() {
+        $('#msav_log').show();
+
+        $('#msav_process_panel').fadeOut(600, function () {
+            $('#msav_settings_panel').fadeIn(600);
+        });
+    };
+
     $(document).ready(function () {
-        log('loaded');
+        console.log('loaded');
     });
 })(jQuery);
