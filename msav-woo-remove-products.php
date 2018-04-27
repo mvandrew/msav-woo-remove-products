@@ -26,6 +26,7 @@ define(
 /**
  * Include libraries
  */
+include_once (dirname(__FILE__) . '/includes/MsavWooRemoveProducts_Base.php');
 include_once (dirname(__FILE__) . '/includes/MsavWooRemoveProducts_Admin.php');
 include_once (dirname(__FILE__) . '/includes/MsavWooRemoveProducts_API.php');
 include_once (dirname(__FILE__) . '/includes/MsavWooRemoveProducts.php');

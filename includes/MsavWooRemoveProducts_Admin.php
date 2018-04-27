@@ -11,7 +11,7 @@ if ( !class_exists('MsavWooRemoveProducts_Admin')) {
 	 * @author Andrey Mishchenko
 	 * @since 1.0.0
 	 */
-	class MsavWooRemoveProducts_Admin {
+	class MsavWooRemoveProducts_Admin extends MsavWooRemoveProducts_Base {
 
 
 		/**

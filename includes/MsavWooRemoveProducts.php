@@ -11,7 +11,7 @@ if ( !class_exists('MsavWooRemoveProducts') ) :
 	 * @author Andrey Mishchenko
 	 * @since 1.0.0
 	 */
-	class MsavWooRemoveProducts {
+	class MsavWooRemoveProducts extends MsavWooRemoveProducts_Base {
 
 
 		/**
@@ -20,14 +20,6 @@ if ( !class_exists('MsavWooRemoveProducts') ) :
 		 * @var MsavWooRemoveProducts
 		 */
 		private static $instance = null;
-
-
-		/**
-		 * Database connection class
-		 *
-		 * @var wpdb
-		 */
-		private $wpdb;
 
 
 		/**
@@ -55,11 +47,23 @@ if ( !class_exists('MsavWooRemoveProducts') ) :
 
 
 		/**
-		 * Indicates the execution status.
+		 * Admin panel helper
 		 *
-		 * @var bool
+		 * @return MsavWooRemoveProducts_Admin
 		 */
-		private $is_run;
+		public function getAdminPanel(): MsavWooRemoveProducts_Admin {
+			return $this->admin_panel;
+		}
+
+
+		/**
+		 * API helper
+		 *
+		 * @return MsavWooRemoveProducts_API
+		 */
+		public function getApi(): MsavWooRemoveProducts_API {
+			return $this->api;
+		}
 
 
 		/**
@@ -68,7 +72,7 @@ if ( !class_exists('MsavWooRemoveProducts') ) :
 		 * @return bool
 		 */
 		public function isRun(): bool {
-			return $this->is_run;
+			return $this->api->isRun();
 		}
 
 
@@ -88,25 +92,11 @@ if ( !class_exists('MsavWooRemoveProducts') ) :
 
 
 		/**
-		 * Return database instance
-		 *
-		 * @return wpdb
-		 */
-		public function getWpdb(): wpdb {
-			return $this->wpdb;
-		}
-
-
-		/**
 		 * MsavWooRemoveProducts constructor.
 		 */
 		private function __construct() {
-			global $wpdb;
-
-			$this->wpdb = $wpdb;
 
 			$this->is_init = false;
-			$this->is_run = false;
 
 			// Helpers initialization.
 			//
@@ -142,6 +132,18 @@ if ( !class_exists('MsavWooRemoveProducts') ) :
 						'enqueue_scripts'
 					)
 				);
+
+
+				// Remove step
+				//
+				if ($this->api->isRun() && $this->api->isInAction()) {
+					$res = array(
+						'products_count' => $this->api->do_remove()
+					);
+
+					echo json_encode($res);
+					wp_die();
+				}
 			}
 		}
 
