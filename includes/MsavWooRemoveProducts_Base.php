@@ -19,6 +19,26 @@ if ( !class_exists('MsavWooRemoveProducts_Base') ) {
 
 
 		/**
+		 * Plugin page ID
+		 *
+		 * @return string
+		 */
+		public function getPageName(): string {
+			return 'msav_woo_remove_products';
+		}
+
+
+		/**
+		 * Is current plugin page
+		 *
+		 * @return bool
+		 */
+		public function isPluginPage(): bool {
+			return $this->getVar('page') == $this->getPageName();
+		}
+
+
+		/**
 		 * Return the query variable.
 		 *
 		 * @param string $name

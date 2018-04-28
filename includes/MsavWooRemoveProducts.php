@@ -125,13 +125,15 @@ if ( !class_exists('MsavWooRemoveProducts') ) :
 					)
 				);
 
-				add_action(
-					'admin_enqueue_scripts',
-					array(
-						$this->admin_panel,
-						'enqueue_scripts'
-					)
-				);
+				if ( $this->isPluginPage() ) {
+					add_action(
+						'admin_enqueue_scripts',
+						array(
+							$this->admin_panel,
+							'enqueue_scripts'
+						)
+					);
+				}
 
 
 				// Remove step
