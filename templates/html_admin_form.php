@@ -97,7 +97,7 @@ if ( ! defined( 'ABSPATH' ) || ! is_admin() ) {
         <table class="form-table">
 			<tbody>
 			<tr>
-				<th><?php _e( 'Deletion progress:', 'msav-woo-remove-products' ); ?></th>
+				<th><?php _e( 'Deleting:', 'msav-woo-remove-products' ); ?></th>
 				<td>
                     <div class="progress">
                         <div id="remove_progress"

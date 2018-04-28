@@ -7,6 +7,9 @@ const autoprefixer          = require("gulp-autoprefixer");
 const gcmq                  = require('gulp-group-css-media-queries');
 const uglify                = require('gulp-uglify');
 const babel                 = require('gulp-babel');
+const del                   = require('del');
+const runSequence           = require('run-sequence');
+const zip                   = require('gulp-zip');
 
 
 /**
@@ -18,10 +21,39 @@ const dirs = {
     src: './assets/',
     dist: './',
     templates: './templates/',
-    build: './build/',
+    build: './_build/',
     bower: './bower_components/',
     node: './node_modules/'
 };
+
+
+/**
+ * Build files list
+ */
+const build_files = [
+    '**',
+    '!' + dirs.build,
+    '!' + dirs.build + '/**',
+    '!includes/messages.log',
+    '!node_modules',
+    '!node_modules/**',
+    '!bower_components',
+    '!bower_components/**',
+    '!assets',
+    '!assets/**',
+    '!.git',
+    '!.git/**',
+    '!package.json',
+    '!package-lock.json',
+    '!bower.json',
+    '!**/*.arj',
+    '!**/*.rar',
+    '!**/*.zip',
+    '!.gitignore',
+    '!gulpfile.js',
+    '!LICENSE',
+    '!README.md'
+];
 
 
 /**
@@ -65,6 +97,9 @@ gulp.task('sass', () => {
 });
 
 
+/**
+ * Default task
+ */
 gulp.task('watch', [
     'sass',
     'js'
@@ -74,5 +109,39 @@ gulp.task('watch', [
     gulp.watch( dirs.src + 'js/**/*.js', ['js'] );
 
 });
-
 gulp.task("default", ["watch"]);
+
+
+/**
+ * Delete the old build files.
+ */
+gulp.task( 'build-clean', function() {
+    return del.sync( dirs.build );
+});
+
+
+/**
+ * Copy the build files.
+ */
+gulp.task( 'build-copy', function() {
+    return gulp.src( build_files )
+        .pipe( gulp.dest( dirs.build + '/msav-woo-remove-products' ) );
+} );
+
+
+/**
+ * Make a plugin package.
+ */
+gulp.task( 'build-zip', function () {
+    return gulp.src( dirs.build + '/msav-woo-remove-products/**' )
+        .pipe( zip('msav-woo-remove-products.zip') )
+        .pipe( gulp.dest(dirs.build) );
+});
+
+
+/**
+ * Build a plugin package.
+ */
+gulp.task( 'build', function() {
+    return runSequence( 'build-clean', 'build-copy', 'build-zip' );
+} );
