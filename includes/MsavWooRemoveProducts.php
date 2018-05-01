@@ -138,14 +138,22 @@ if ( !class_exists('MsavWooRemoveProducts') ) :
 
 				// Remove step
 				//
-				if ($this->api->isRun() && $this->api->isInAction()) {
-					$res = array(
-						'products_count' => $this->api->do_remove()
-					);
+				add_action( 'wp_ajax_msav_woo_remove_products', array($this, 'ajaxRemove') );
+			}
+		} // init
 
-					echo json_encode($res);
-					wp_die();
-				}
+
+		/**
+		 * Remove AJAX query
+		 */
+		public function ajaxRemove() {
+			if ($this->api->isRun() && $this->api->isInAction()) {
+				$res = array(
+					'products_count' => $this->api->do_remove()
+				);
+
+				echo json_encode($res);
+				wp_die();
 			}
 		}
 
