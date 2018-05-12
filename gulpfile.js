@@ -8,6 +8,7 @@ const gcmq                  = require('gulp-group-css-media-queries');
 const uglify                = require('gulp-uglify');
 const babel                 = require('gulp-babel');
 const del                   = require('del');
+const fs                    = require('fs');
 const runSequence           = require('run-sequence');
 const zip                   = require('gulp-zip');
 
@@ -54,6 +55,27 @@ const build_files = [
     '!LICENSE',
     '!README.md'
 ];
+
+
+/**
+ * ===================================================================
+ *
+ * COMMON FUNCTIONS
+ *
+ * ===================================================================
+ */
+
+function gulpGetJSONData() {
+    return JSON.parse(fs.readFileSync("./package.json"));
+}
+
+function gulpGetPackageVersion() {
+    return gulpGetJSONData().version;
+}
+
+function gulpGetPackageName() {
+    return gulpGetJSONData().name;
+}
 
 
 /**
@@ -113,7 +135,7 @@ gulp.task("default", ["watch"]);
 
 
 /**
- * Delete the old build files.
+ * Clean the build folder
  */
 gulp.task( 'build-clean', function() {
     return del.sync( dirs.build );
@@ -121,7 +143,7 @@ gulp.task( 'build-clean', function() {
 
 
 /**
- * Copy the build files.
+ * Copy the theme files
  */
 gulp.task( 'build-copy', function() {
     return gulp.src( build_files )
@@ -130,17 +152,23 @@ gulp.task( 'build-copy', function() {
 
 
 /**
- * Make a plugin package.
+ * Zip the current release
  */
 gulp.task( 'build-zip', function () {
+    /**
+     * Set the package name
+     * @type {string}
+     */
+    const packageName = gulpGetPackageName(); // + '.' + gulpGetPackageVersion();
+
     return gulp.src( dirs.build + '/msav-woo-remove-products/**' )
-        .pipe( zip('msav-woo-remove-products.zip') )
-        .pipe( gulp.dest(dirs.build) );
+        .pipe( zip(packageName + '.zip') )
+        .pipe( gulp.dest(dirs.build + '/dist') );
 });
 
 
 /**
- * Build a plugin package.
+ * Build - complex task
  */
 gulp.task( 'build', function() {
     return runSequence( 'build-clean', 'build-copy', 'build-zip' );
